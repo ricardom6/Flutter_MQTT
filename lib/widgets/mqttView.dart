@@ -60,8 +60,8 @@ class _MQTTViewState extends State<MQTTView> {
 
   Widget _buildAppBar(BuildContext context) {
     return AppBar(
-      title: const Text('MQTT'),
-      backgroundColor: Colors.greenAccent,
+      title: const Text('MQTT M6 Auto'),
+      //backgroundColor: Colors.greenAccent,
     );
   }
 
@@ -81,7 +81,7 @@ class _MQTTViewState extends State<MQTTView> {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: <Widget>[
-          _buildTextFieldWith(_hostTextController, 'Enter broker address',currentAppState.getAppConnectionState),
+          _buildTextFieldWith(_hostTextController, 'Insira endereco do broker',currentAppState.getAppConnectionState),
           const SizedBox(height: 10),
           _buildTextFieldWith(
               _topicTextController, 'Enter a topic to subscribe or listen', currentAppState.getAppConnectionState),
@@ -224,7 +224,8 @@ class _MQTTViewState extends State<MQTTView> {
     if(Platform.isAndroid){
       osPrefix = 'Flutter_Android';
     }
-    final String message = osPrefix + ' says: ' + text;
+    //final String message = osPrefix + ' says: ' + text;
+    final String message = text;
     manager.publish(message);
     _messageTextController.clear();
   }
