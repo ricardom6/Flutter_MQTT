@@ -90,7 +90,7 @@ class _MQTTViewState extends State<MQTTView> {
           const SizedBox(height: 10),
           _buildConnecteButtonFrom(currentAppState.getAppConnectionState),
           const SizedBox(height: 10),
-          _buildLinhaDeComando('01');
+          _buildLinhaDeComando('01'),
         ],
       ),
     );
