@@ -24,13 +24,13 @@ class MQTTManager{
   void initializeMQTTClient(){
     //_client = MqttServerClient.withPort(_host,_identifier,8883);//realizada alteração, acrescentado .withPort
     _client = MqttServerClient(_host,_identifier);
-     _client.port = 8883;//1885 - 8883
+    _client.port = 8883;//1885 - 8883
     _client.keepAlivePeriod = 20;
     _client.onDisconnected = onDisconnected;
     _client.secure = false;
     _client.logging(on: false);
 
-    // _client.checkCredentials('m6auto', 'menezes06');
+    // _client.checkCredentials('m6auto', 'padrao');
 
 
     /// Add the successful connection callback

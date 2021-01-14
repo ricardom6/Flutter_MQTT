@@ -88,7 +88,9 @@ class _MQTTViewState extends State<MQTTView> {
           const SizedBox(height: 10),
           _buildPublishMessageRow(),
           const SizedBox(height: 10),
-          _buildConnecteButtonFrom(currentAppState.getAppConnectionState)
+          _buildConnecteButtonFrom(currentAppState.getAppConnectionState),
+          const SizedBox(height: 10),
+          _buildLinhaDeComando('01');
         ],
       ),
     );
@@ -177,6 +179,34 @@ class _MQTTViewState extends State<MQTTView> {
       ],
     );
   }
+  Widget _buildLinhaDeComando(String text) {
+
+    final String idTopicoA = 'A' + text;
+    final String idTopicoB = 'B' + text;
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: RaisedButton(
+            color: Colors.redAccent,
+            child: Text(idTopicoB),
+            onPressed: () {
+              _publishMessage(idTopicoB);
+            },
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: RaisedButton(
+            color: Colors.greenAccent,
+            child: Text(idTopicoA),
+            onPressed: () {
+              _publishMessage(idTopicoA);
+            },
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _buildSendButtonFrom(MQTTAppConnectionState state) {
     return RaisedButton(
@@ -185,6 +215,7 @@ class _MQTTViewState extends State<MQTTView> {
       onPressed: state == MQTTAppConnectionState.connected
           ? () {
               _publishMessage(_messageTextController.text);
+
             }
           : null, //
     );
