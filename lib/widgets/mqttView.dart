@@ -90,7 +90,10 @@ class _MQTTViewState extends State<MQTTView> {
           const SizedBox(height: 10),
           _buildConnecteButtonFrom(currentAppState.getAppConnectionState),
           const SizedBox(height: 10),
-          _buildLinhaDeComando('01'),
+
+          _buildLinhaDeComando('Garagem','00'),
+          _buildLinhaDeComando('Escritorio','01'),
+          _buildLinhaDeComando('Banheiro','02'),
         ],
       ),
     );
@@ -179,31 +182,37 @@ class _MQTTViewState extends State<MQTTView> {
       ],
     );
   }
-  Widget _buildLinhaDeComando(String text) {
+  Widget _buildLinhaDeComando(String buttonName,String text) {
 
     final String idTopicoA = 'A' + text;
     final String idTopicoB = 'B' + text;
-    return Row(
+    final String nome = buttonName;
+    return Column(
       children: <Widget>[
-        Expanded(
-          child: RaisedButton(
-            color: Colors.redAccent,
-            child: Text(idTopicoB),
-            onPressed: () {
-              _publishMessage(idTopicoB);
-            },
+        Text(nome),
+        Row(
+        children: <Widget>[
+          Expanded(
+            child: RaisedButton(
+              color: Colors.redAccent,
+              child: Text('OFF'),
+              onPressed: () {
+                _publishMessage(idTopicoB);
+              },
+            ),
           ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: RaisedButton(
-            color: Colors.greenAccent,
-            child: Text(idTopicoA),
-            onPressed: () {
-              _publishMessage(idTopicoA);
-            },
+          const SizedBox(width: 10),
+          Expanded(
+            child: RaisedButton(
+              color: Colors.greenAccent,
+              child: Text('ON'),
+              onPressed: () {
+                _publishMessage(idTopicoA);
+              },
+            ),
           ),
-        ),
+        ],
+      ),
       ],
     );
   }

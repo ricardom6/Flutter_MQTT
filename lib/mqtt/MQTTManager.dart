@@ -48,6 +48,7 @@ class MQTTManager{
 
   }
   // Connect to the host
+  // ignore: avoid_void_async
   void connect() async{
     assert(_client != null);
     try {
