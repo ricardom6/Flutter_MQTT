@@ -19,6 +19,7 @@ class _MQTTViewState extends State<MQTTView> {
   MQTTAppState currentAppState;
   MQTTManager manager;
 
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +55,7 @@ class _MQTTViewState extends State<MQTTView> {
     // Keep a reference to the app state.
     currentAppState = appState;
     final Scaffold scaffold =
-        Scaffold(appBar: _buildAppBar(context), body: _buildColumn());
+        Scaffold(appBar: _buildAppBar(context), body: _buildSingleChildScrollView());
     return scaffold;
   }
 
@@ -64,7 +65,11 @@ class _MQTTViewState extends State<MQTTView> {
       //backgroundColor: Colors.greenAccent,
     );
   }
-
+  Widget _buildSingleChildScrollView() {
+    return SingleChildScrollView(
+        child: _buildColumn(),
+    );
+  }
   Widget _buildColumn() {
     return Column(
       children: <Widget>[
@@ -93,7 +98,30 @@ class _MQTTViewState extends State<MQTTView> {
 
           _buildLinhaDeComando('Garagem','00'),
           _buildLinhaDeComando('Escritorio','01'),
-          _buildLinhaDeComando('Banheiro','02'),
+          _buildLinhaDeComando('Banheiro Esc','02'),
+             // *Buzzer
+            _buildLinhaDeComando('Lavabo','04'),
+            _buildLinhaDeComando('Lamp1 sala','05'),
+            _buildLinhaDeComando('Lamp2 sala','06'),
+            _buildLinhaDeComando('luz bh suite','07'),
+            _buildLinhaDeComando('Quarto 2','08'),
+              // *Ar Escritorio
+            _buildLinhaDeComando('Suite','10'),
+            _buildLinhaDeComando('home office','11'),
+            _buildLinhaDeComando('Cascata','12'),
+            _buildLinhaDeComando('Area de serviço','13'),
+            _buildLinhaDeComando('Bh Social','14'),
+            _buildLinhaDeComando('Cozinha','15'),
+            _buildLinhaDeComando('L1Varanda','16'),
+            _buildLinhaDeComando('L2Varanda','17'),
+            _buildLinhaDeComando('L3Jardim','18'),
+            _buildLinhaDeComando('L4Pool','19'),
+            _buildLinhaDeComando('Bomba Hidro','20'),
+          //21
+          //22
+            _buildLinhaDeComando('Ar Condicionado','23'),
+            _buildLinhaDeComando('Jardim Frontal','24'),
+
         ],
       ),
     );
@@ -195,7 +223,7 @@ class _MQTTViewState extends State<MQTTView> {
           Expanded(
             child: RaisedButton(
               color: Colors.redAccent,
-              child: Text('OFF'),
+              child: Text(nome + ' OFF'),
               onPressed: () {
                 _publishMessage(idTopicoB);
               },
@@ -205,7 +233,7 @@ class _MQTTViewState extends State<MQTTView> {
           Expanded(
             child: RaisedButton(
               color: Colors.greenAccent,
-              child: Text('ON'),
+              child: Text(nome + ' ON'),
               onPressed: () {
                 _publishMessage(idTopicoA);
               },
