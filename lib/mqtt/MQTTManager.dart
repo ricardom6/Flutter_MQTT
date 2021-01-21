@@ -11,7 +11,7 @@ class MQTTManager{
   final String _identifier;
   final String _host;
   final String _topic;
-
+  String topicoRecebido = '';
   // Constructor
   MQTTManager({
    @required String host,
@@ -69,7 +69,8 @@ class MQTTManager{
   void publish(String message){
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
     builder.addString(message);
-    _client.publishMessage(_topic, MqttQos.exactlyOnce, builder.payload);
+    //_client.publishMessage(_topic, MqttQos.exactlyOnce, builder.payload);
+    _client.publishMessage('COMANDOS', MqttQos.exactlyOnce, builder.payload);
   }
 
   /// The subscribed callback
@@ -86,16 +87,34 @@ class MQTTManager{
     _currentState.setAppConnectionState(MQTTAppConnectionState.disconnected);
   }
 
+  bool m6Subscribe(String topico){
+    //final String newTopico = topico;
+    if (topico == topicoRecebido){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   /// The successful connect callback
   void onConnected() {
     _currentState.setAppConnectionState(MQTTAppConnectionState.connected);
-    print('EXAMPLE::Mosquitto client connected....');
-    _client.subscribe(_topic, MqttQos.atLeastOnce);
+     print('EXAMPLE::Mosquitto client connected....');
+    //_client.subscribe(_topic, MqttQos.atLeastOnce);
+    _client.subscribe('Y00', MqttQos.atLeastOnce);
+    _client.subscribe('Y01', MqttQos.atLeastOnce);
+    _client.subscribe('Y02', MqttQos.atLeastOnce);
+    _client.subscribe('Y03', MqttQos.atLeastOnce);
+    _client.subscribe('Y04', MqttQos.atLeastOnce);
+    _client.subscribe('Y05', MqttQos.atLeastOnce);
+    _client.subscribe('Y06', MqttQos.atLeastOnce);
+    _client.subscribe('Y07', MqttQos.atLeastOnce);
     _client.updates.listen((List<MqttReceivedMessage<MqttMessage>> c) {
       final MqttPublishMessage recMess = c[0].payload;
-      final String pt =
-      MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      final String pt = c[0].topic + ' => ' +
+          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
       _currentState.setReceivedText(pt);
+      topicoRecebido = pt;
       print(
           'EXAMPLE::Change notification:: topic is <${c[0].topic}>, payload is <-- $pt -->');
       print('');
